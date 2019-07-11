@@ -101,6 +101,8 @@ while len(hand1)>0 and len(hand2)>0:
 		card1-=13
 	while card2>12:
 		card2-=13
+	
+	#handles case where card 1 wins
 	if card1>card2:
 		hand1.append(hand1[0])
 		hand1.append(hand2[0])
@@ -108,6 +110,8 @@ while len(hand1)>0 and len(hand2)>0:
 		del hand1[0]
 		del hand2[0]
 		turns+=1
+		
+	#handles case where card 2 wins
 	elif card2>card1:
 		hand2.append(hand1[0])
 		hand2.append(hand2[0])
@@ -115,10 +119,13 @@ while len(hand1)>0 and len(hand2)>0:
 		del hand1[0]
 		del hand2[0]
 		turns+=1
+	
+	#handles war
 	else:
 		try:
 			turns+=1
 			war(0)
+		#cases where a player lacks cards to compete in war
 		except IndexError:
 				if len(hand1)<len(hand2):
 					print("player 1 does not have enough cards to compete in war")
@@ -128,6 +135,8 @@ while len(hand1)>0 and len(hand2)>0:
 					print("player 2 does not have enough cards to compete in war")
 					print("player 1 won in " + str(turns) + " turns")
 					break
+					
+#normal win conditions
 if len(hand1)==0:
 	print("player 2 won in " + str(turns) + " turns")
 if len(hand2)==0:
