@@ -31,48 +31,55 @@ hand1=cards[:26]
 hand2=cards[-26:]
 random
 
-def war():
+def war(type):
 	print("WAR!")
-	print(hand1[0] + " and " + hand2[0] + " were played")
+	print(hand1[type] + " and " + hand2[type] + " were played")
+
+	warCard1=cardso.index(hand1[type + 2])
+	warCard2=cardso.index(hand2[type + 2])
+	while warCard1>12:
+		warCard1-=13
+	while warCard2>12:
+		warCard2-=13
+
 	if warCard1>warCard2:
-			print("player 1's " + hand1[2] + " beat player 2's " + hand2[2])		
-			print("player 1 saved " + hand1[1] + " and player 2 lost " + hand2[1])
-			hand1.extend(hand1[:2])
-			hand1.extend(hand2[:2])
-			del hand1[:2]
-			del hand2[:2]
-			
+		x=1
+		savings = []
+		winnings = []
+		while (type-x)>=-1:
+			savings.append(hand1[x])
+			winnings.append(hand2[x])
+			x+=2
+		print("player 1's " + hand1[type + 2] + " beat player 2's " + hand2[type + 2])		
+		print("player 1 saved " + str(savings) + " and player 2 lost " + str(winnings))
+		hand1.extend(hand1[:(type + 2)])
+		hand1.extend(hand2[:(type + 2)])
+		del hand1[:(type + 2)]
+		del hand2[:(type + 2)]
+		savings = []
+		winnings = []
+
 	elif warCard2>warCard1:
-			print("player 2's " + hand2[2] + " beat player 1's " + hand1[2])		
-			print("player 2 saved " + hand2[1] + " and player 1 lost " + hand1[1])
-			hand2.extend(hand1[:2])
-			hand2.extend(hand2[:2])
-			del hand1[:2]
-			del hand2[:2]
-			
+		x=1
+		savings = []
+		winnings = []
+		while (type-x)>=-1:
+			savings.append(hand2[x])
+			winnings.append(hand1[x])
+			x+=2
+		print("player 2's " + hand2[type + 2] + " beat player 1's " + hand1[type + 2])		
+		print("player 2 saved " + str(savings) + " and player 1 lost " + str(winnings))
+		hand2.extend(hand1[:(type + 2)])
+		hand2.extend(hand2[:(type + 2)])
+		del hand1[:(type + 2)]
+		del hand2[:(type + 2)]
+		savings = []
+		winnings = []
+
 	else:
-			print("WAR!")
-			print(hand1[2] + " and " + hand2[2] + " were played")
-			doubleWarCard1=cardso.index(hand1[4])
-			doubleWarCard2=cardso.index(hand2[4])
-			while doubleWarCard1>12:
-				doubleWarCard1-=13
-			while doubleWarCard2>12:
-				doubleWarCard2-=13
-			if doubleWarCard1>doubleWarCard2:
-					print("player 1's " + hand1[4] + " beat player 2's " + hand2[4])		
-					print("player 1 saved " + hand1[3] + " and " + hand1[1] + " and player 2 lost " + hand2[1] + " and " + hand2[3])
-					hand1.extend(hand1[:4])
-					hand1.extend(hand2[:4])
-					del hand1[:4]
-					del hand2[:4]
-			elif doubleWarCard2>doubleWarCard1:
-					print("player 2's " + hand2[4] + " beat player 1's " + hand1[4])		
-					print("player 2 saved " + hand2[1] + " and " + hand2[3] + " and player 1 lost " + hand1[1] + " and " + hand1[3] )
-					hand2.extend(hand1[:4])
-					hand2.extend(hand2[:4])
-					del hand1[:4]
-					del hand2[:4]
+		type+=2
+		war(type)
+
 while len(hand1)>0 and len(hand2)>0:
 	card1=cardso.index(hand1[0])
 	card2=cardso.index(hand2[0])
@@ -96,14 +103,8 @@ while len(hand1)>0 and len(hand2)>0:
 		turns+=1
 	else:
 		try:
-			warCard1=cardso.index(hand1[2])
-			warCard2=cardso.index(hand2[2])
-			while warCard1>12:
-				warCard1-=13
-			while warCard2>12:
-				warCard2-=13
 			turns+=1
-			war()
+			war(0)
 		except IndexError:
 				if len(hand1)<len(hand2):
 					print("player 2 won in " + str(turns) + " turns")
@@ -116,3 +117,4 @@ if len(hand1)==0:
 if len(hand2)==0:
 	print("player 1 won in " + str(turns) + " turns")
 	
+			
