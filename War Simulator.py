@@ -23,14 +23,14 @@ while y<4:
 cards[:13]=[]
 
 #creates a constant deck "cardso" where every 13 cards are in order from least to greatest
-cardso= tuple(cards)
+cardso=tuple(cards)
 
 #shuffles the deck and deals the cards into 2 hands
 random.shuffle(cards)
 hand1=cards[:26]
 hand2=cards[-26:]
-random
 
+#handles cases where each player plays the same card
 def war(type):
 	print("WAR!")
 	print(hand1[type] + " and " + hand2[type] + " were played")
